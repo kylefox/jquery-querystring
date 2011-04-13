@@ -28,7 +28,7 @@ $(function() {
   
   test("nested objects & arrays", function() {
     var object = {person: {name:"John", age:110, drinks: ['Beer', 'Whisky', 'Wine'], location: {city: "New York", state:"NY"}}},
-        expected = "person[name]=John&person[age]=110&drinks[]=Beer&drinks[]=Whisky&drinks[]=Wine&person[location][city]=New%20York&person[location][state]=NY";
+        expected = "person[name]=John&person[age]=110&person[drinks][]=Beer&person[drinks][]=Whisky&person[drinks][]=Wine&person[location][city]=New%20York&person[location][state]=NY";
     equals($.querystring(object), expected); // FIXME
   });
   
