@@ -1,6 +1,6 @@
 This plugin attempts to make working with querystrings easier. The primary function exposed is `$.querystring`, which handles both parsing & serialization (depending on the type of argument passed in). A `$.fn.querystring` method is also provided, which makes getting & setting the querystring of `<a>` elements more convenient.
 
-_Currently only the simplest cases work, but the goal is to support nested objects, arrays, and type coercion. Please refer to the test suite for more info._
+_Currently only the simplest cases work, but the goal is to support nested objects and arrays. Please refer to the test suite for more info._
 
 Basic usage
 -----------

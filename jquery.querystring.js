@@ -9,6 +9,21 @@
     }
   };
   
+  // Returns the JavaScript value of a querystring parameter.
+  // Decodes the string & coerces it to the appropriate JavaScript type.
+  // Examples:
+  //    'Coffee%20and%20milk' => 'Coffee and milk'
+  //    'true' => true
+  //    '21' => 21
+  function parseValue(value) {
+    value = decodeURIComponent(value);
+    try {
+      return JSON.parse(value);
+    } catch(e) {
+      return value;
+    }
+  }
+  
   // Takes a URL (or fragment) and parses the querystring portion into an object.
   // Returns an empty object if there is no querystring.
   function parse(url) {
@@ -20,7 +35,8 @@
     }
     
     $.each(query.split('&'), function(idx, pair) {
-      params[pair.split('=')[0]] = decodeURIComponent(pair.split('=')[1] || '');
+      pair = pair.split('=');
+      params[pair[0]] = parseValue(pair[1] || '');
     });
 
     return params;
