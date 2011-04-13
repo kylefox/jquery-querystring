@@ -78,4 +78,10 @@ $(function() {
     );    
   });
   
+  module("Element methods");
+  
+  test("get querystring from link", function() {});
+  test("set link querystring", function() {});
+  // TODO: Tests for clearing, merging & using `form` elements.
+  
 });
