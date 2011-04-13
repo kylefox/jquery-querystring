@@ -12,8 +12,6 @@ Objects can be serialized to a querystring fragment:
 Conversely, querystring fragments can be parsed back into objects:
 
     $.querystring("name=John&age=42"); // {name: "John", age:42}
-    
-_Right now the supplied string must begin with `?` -- I know this is dumb, and plan on making the leading `?` optional._
 
 Element methods
 ---------------

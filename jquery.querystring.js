@@ -1,10 +1,19 @@
 (function($) {
   
+  // Naive method of yanking the querystring portion from a string (just splits on the first '?', if present).
+  function extractQuery(string) {
+    if(string.indexOf('?') >= 0) {
+      return string.split('?')[1];
+    } else {
+      return string;
+    }
+  };
+  
   // Takes a URL (or fragment) and parses the querystring portion into an object.
   // Returns an empty object if there is no querystring.
   function parse(url) {
     var params = {},
-        query = url.split('?')[1];
+        query = extractQuery(url);
 
     if(!query) {
       return params;

@@ -41,6 +41,7 @@ $(function() {
   test("simple properties", function() {
     deepEqual($.querystring("?name=John"), {name: "John"}, "With leading '?'");
     deepEqual($.querystring("name=John"), {name: "John"}, "Without leading '?'");
+    deepEqual($.querystring("http://google.com/?name=John"), {name: "John"}, "With domains prefix.");
   });
   
   test("coercion to native types", function() {
