@@ -12,6 +12,8 @@ Objects can be serialized to a querystring fragment:
 Conversely, querystring fragments can be parsed back into objects:
 
     $.querystring("name=John&age=42"); // {name: "John", age:42}
+    
+_Right now the supplied string must begin with `?` -- I know this is dumb, and plan on making the leading `?` optional._
 
 Element methods
 ---------------
@@ -35,6 +37,8 @@ You can also use this to remove the querystring:
 
     $('a').querystring({}, true);
     
+_Right now only `<a>` tags are supported, but support for `<form>` tags is planned._
+    
 Syntax
 ------
     
@@ -57,8 +61,11 @@ equates to:
 Tests & Contributing
 --------------------
 
-Testing is done with [QUnit](http://docs.jquery.com/Qunit). Have a look at [tests/tests.js](https://github.com/kylefox/jquery-querystring/blob/master/tests/tests.js) to learn more about the intended API. Running the tests (ie, opening `tests/index.html` in your browser) will give you an idea of which features remain to be implemented & clarified:
+Testing is done with [QUnit](http://docs.jquery.com/Qunit). Have a look at [tests/tests.js](https://github.com/kylefox/jquery-querystring/blob/master/tests/tests.js) to learn more about the intended API. Running the tests (ie, opening `tests/index.html` in your browser) will give you an idea of which features remain to be implemented & clarified.
+
+I would love help with this plugin, so please fork & submit pull requests. Here's an immediate hit-list of things to implement:
 
 * Parsing & serialization of nested objects & arrays
 * Coercion to native types (ex: Number, Boolean)
 * Handling of blank/empty values
+
