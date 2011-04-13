@@ -16,6 +16,8 @@ $(function() {
   test("empty values", function() {
     equals($.querystring({}), "", "Empty objects serialize to empty strings.");
     equals($.querystring({name:null}), "", "Properties with null values are omitted from resulting string.");
+    equals($.querystring({name:''}), "name=", 'Blank strings are included in result.');
+    equals($.querystring({boring:false}), "boring=false", '`false` literal is included in result.');
   });
   
   test("arrays", function() {
@@ -27,9 +29,10 @@ $(function() {
   });
   
   test("nested objects & arrays", function() {
-    var object = {person: {name:"John", age:110, drinks: ['Beer', 'Whisky', 'Wine'], location: {city: "New York", state:"NY"}}},
-        expected = "person[name]=John&person[age]=110&person[drinks][]=Beer&person[drinks][]=Whisky&person[drinks][]=Wine&person[location][city]=New%20York&person[location][state]=NY";
-    equals($.querystring(object), expected); // FIXME
+    equals(
+      $.querystring({person: {name:"John", age:110, drinks: ['Beer', 'Whisky', 'Wine'], location: {city: "New York", state:"NY"}}}),
+      "person[name]=John&person[age]=110&person[drinks][]=Beer&person[drinks][]=Whisky&person[drinks][]=Wine&person[location][city]=New%20York&person[location][state]=NY"
+    );
   });
   
   
@@ -37,7 +40,14 @@ $(function() {
   
   test("simple properties", function() {
     deepEqual($.querystring("?name=John"), {name: "John"}, "With leading '?'");
-    deepEqual($.querystring("name=John"), {name: "John"}, "Without leading '?'"); // FIXME
+    deepEqual($.querystring("name=John"), {name: "John"}, "Without leading '?'");
+  });
+  
+  test("coercion to native types", function() {
+    deepEqual($.querystring('?boring=false'), {boring:false}, 'Should parse true/false to native boolean types.');
+    deepEqual($.querystring('?awesome=true'), {awesome:true}, 'Should parse true/false to native boolean types.');
+    deepEqual($.querystring('?age=21'), {age:21});
+    deepEqual($.querystring('?things=null'), {things: null});
   });
 
   test("properties requiring URI decoding", function() {
@@ -46,19 +56,26 @@ $(function() {
   });
   
   test('empty values', function() {
-    
+    deepEqual($.querystring('?awesome'), {awesome:""});
+    deepEqual($.querystring('?awesome='), {awesome:""});
   });
   
   test('arrays', function() {
-    deepEqual($.querystring("?drinks[]=Beer&drinks[]=Whisky&drinks[]=Wine"), {drinks: ['Beer', 'Whisky', 'Wine']}); // FIXME
+    deepEqual(
+      $.querystring("?drinks[]=Beer&drinks[]=Whisky&drinks[]=Wine"),
+      {drinks: ['Beer', 'Whisky', 'Wine']}
+    );
   });
   
   test('simple objects', function() {
-    
+    deepEqual($.querystring("?person[name]=John"), {person: {name: "John"}});
   });
   
   test('nested objects & arrays', function() {
-    
+    deepEqual(
+      $.querystring("?person[location][city]=NYC&&person[drinks][]=Beer&person[drinks][]=Whisky&person[drinks][]=Wine"),
+      {person: {location: {city:'NYC'}}, drinks: ['Beer', 'Whisky', 'Wine']}
+    );    
   });
   
 });
