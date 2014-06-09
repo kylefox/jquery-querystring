@@ -92,7 +92,7 @@ $(function() {
     deepEqual($('<a href="/foo?">link</a>').querystring(), {}, "With no querystring");
     deepEqual($('<a href="/foo?name=John">link</a>').querystring(), {name: "John"}, "With querystring");
     deepEqual($('<a href="http://google.com/?name=John">link</a>').querystring(), {name: "John"}, "With domains prefix.");
-    // deepEqual($('<a href="/foo">link</a>').querystring(), {}, "With no ?");
+    deepEqual($('<a href="/foo">link</a>').querystring(), {}, "With no ?");
   });
   test("set link querystring existing", function() {
     equals(
