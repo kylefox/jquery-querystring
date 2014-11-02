@@ -37,8 +37,19 @@
     }
 
     $.each(query.split('&'), function(idx, pair) {
+      var key, value, oldValue;
       pair = pair.split('=');
-      params[pair[0]] = parseValue(pair[1] || '');
+      key = pair[0].replace('[]', ''); // FIXME
+      value = parseValue(pair[1] || '');
+      if (params.hasOwnProperty(key)) {
+        if (!params[key].push) {
+          oldValue = params[key];
+          params[key] = [oldValue];
+        }
+        params[key].push(value);
+      } else {
+        params[key] = value;
+      }
     });
 
     return params;
